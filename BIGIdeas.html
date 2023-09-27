@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="BrianGv2CSS.css" />
+
+<head>
+    <title>Brian's BIG Ideas</title>
+</head>
+
+<script src="confetti.js"></script>
+
+
+<body style="background-image: url('Background.jpeg'); background-size: cover;"> 
+    <h1>Welcome to BIG IDEAS Board</h1>
+    <h2 title="what it do babyyyy">Many a man hath tried, few have suceeded.</h2>
+    <button onClick="window.location.reload();">Refresh</button>
+    <button onclick="window.location.href='/Users/briangillis/Documents/To-Do-List/BrianGv2.html'">Smaller Ideas</button>
+
+
+
+    <div id="myDIV" class="header">
+        <h3> My To Do List </h3>
+        <input type="text" id="myInput" placeholder="Enter your BIG idea...">
+        <span onClick="addTask()" class="addItemBtn">Add</span>
+    </div>
+
+    <ul id="myUL">
+        <li class="subject">Trips</li>
+        <li class="task">Smokey Mountains</li>
+        <li class="checked">CAAMP in Columbus</li>
+        <li class="checked">KC BBQ and Tailgate</li>
+        <li class="subject">Steps towards skills</li>
+        <li class="checked">Best rush of all time</li>
+        <li class="task">House of the Rising Sun</li>
+        <li class="task">Win a game of chess</li>
+        <li class="task">CS 50 @ Harvard</li>
+        <li class="checked">Increment / Decrement Button Game</li>
+        <li class="checked">Take a girl out on a date</li>
+        <li class="task">Solid gym routine for a FULL MONTH</li>
+        <li class="checked">Finish Siddartha</li>
+        <li class="task">Finish The Jungle</li>
+    </ul>
+    
+</body>
+
+<script>
+
+    var itemList = document.getElementsByTagName("LI");
+    for (var i = 0; i < itemList.length; i++) {
+        if (itemList[i].className && itemList[i].className !== "subject") {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u2713");
+            span.className = "complete";
+            span.appendChild(txt);
+            itemList[i].appendChild(span);
+        }
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "remove";
+        span.appendChild(txt);
+        itemList[i].appendChild(span);
+    }
+
+    var remove = document.getElementsByClassName("remove");
+    for (i = 0; i < remove.length; i++) {
+        remove[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+
+    function completed() {
+        var complete = document.getElementsByClassName("complete");
+        for (i = 0; i < complete.length; i++) {
+            complete[i].onclick = function () {
+                var item = this.parentElement;
+                item.className = "checked";
+                startConfetti();
+                window.scrollTo({
+                    top: 600,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+                setTimeout(() => {window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: 'smooth'
+                })}, 3000);
+
+
+                var stop = document.createElement("SPAN");
+                txt = document.createTextNode("Back to Work");
+                stop.className = "stopConfetti";
+                stop.appendChild(txt);
+                item.appendChild(stop);
+                
+                endCelebrate();
+            }
+        }
+    
+    }
+
+    function endCelebrate() {
+        var endCelly = document.getElementsByClassName("stopConfetti");
+        for (i = 0; i <= endCelly.length; i++) {
+            endCelly[i].onclick = function () {
+                stopConfetti();
+                this.style.display = "none";
+            }
+        }
+    }
+
+    completed();
+
+
+    function addTask() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myUL").appendChild(li);
+            alert("Is this achievable and realistic?")
+        }
+        li.className = "task"
+        document.getElementById("myInput").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u2713");
+        span.className = "complete";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "remove";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+
+        for (i = 0; i < remove.length; i++) {
+            remove[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+        completed();
+    }
+    function addSubject() {
+        var li = document.createElement("li");
+        li.className = "subject";
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myUL").appendChild(li);
+        }
+        document.getElementById("myInput").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "remove";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < remove.length; i++) {
+            remove[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+    }
+
+
+</script>

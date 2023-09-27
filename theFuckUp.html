@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="BrianGv2CSS.css" />
+
+<head>
+    <title>Brian Gillis' Website</title>
+</head>
+
+<script src="confetti.js"></script>
+
+
+<body id="container" style="background-image: url('Background.jpeg'); background-size: cover;">
+    <h1>You Done Goofed</h1>
+    <h2 title="what it do babyyyy">But you can fix it</h2>
+    <hr>
+
+    <button onClick="window.location.reload();">Refresh</button>
+
+    <div class="dropdown">
+        <button class="dropbtn">Email</button>
+        <div class="dropdown-content">
+            <a href="https://outlook.office.com/mail/">Outlook</a>
+            <a href="https://mail.google.com/mail/u/0/#inbox">Gmail</a>
+        </div>
+    </div>
+
+    <button onclick="window.location.href='/Users/briangillis/Documents/To-Do-List/BrianGv2.html'">Get Back to
+        It</button>
+
+    <button onclick="window.location.href='file:///Users/briangillis/Documents/To-Do-List/BIGIdeas.html'">Remember the
+        Goals</button>
+    <button onclick="nameFeeder()">Need a Hand</button>
+
+
+    <div id="myDIV" class="fuckupBox">
+        <h3> Whats the Damage </h3>
+    </div>
+
+    <ul id="Phone">
+        <li class="subject">DOOM SCROLL / PHONE %(</li>
+        <li class="vice">Insta</li>
+        <li class="vice">Twitter</li>
+        <li class="vice">Reddit</li>
+        <li class="vice">Futile YouTube</li>
+        <li class="vice">Reddit</li>
+    </ul>
+
+    <ul id="Rush">
+        <li class="subject">Rush</li>
+        <li class="task">Get form infor from IFC</li>
+        <li class="task">Talk w kalkstein and sammy rob </li>
+        <li class="task">Food concrete plan </li>
+        <li class="task">Send texts to PNMs (a little later)</li>
+    </ul>
+
+</body>
+
+<script>
+    let counters = [];
+    var itemList = document.getElementsByTagName("LI");
+    for (var i = 0; i < itemList.length; i++) {
+        counters.push(0);
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "guilty";
+        span.appendChild(txt);
+        itemList[i].appendChild(span);
+
+        if (itemList[i].className != "subject") {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode(counters[i]);
+            span.className = "counter";
+            span.appendChild(txt);
+            itemList[i].appendChild(span);
+        }
+    }
+
+    function guilty() {
+        var guilty = document.getElementsByClassName("guilty");
+        for (i = 0; i < guilty.length; i++) {
+            var count = ++counters[i] ;
+            guilty[i].onclick = function () {
+                var current = this.parentElement.childNodes[2];
+                current.innerHTML = count;
+            }
+        }
+
+        return counters;
+
+    }
+
+    counters = guilty();
+
+
+    function addTask() {
+
+        var inputValue = document.getElementById("myInput").value;
+        if (document.getElementById("date").value) {
+            var date = document.getElementById("date").value;
+            date = "2022," + date;
+            var isDate = true;
+            date = new Date(date);
+            var today = new Date();
+            var isMonth;
+
+            if (date.getMonth() === today.getMonth()) {
+                var daysUntil = date.getDate() - today.getDate();
+                isMonth = true;
+            } else {
+                isMonth = false;
+            }
+        }
+
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("date").style.display = "none";
+            document.getElementById("addDateBtn").style.display = "inline";
+
+            var li = document.createElement("li");
+            var subjects = document.getElementsByTagName("UL");
+            li.className = "task";
+            document.getElementById("myInput").value = "";
+
+            if (isDate) {
+                if (isMonth) {
+                    var span = document.createElement("SPAN");
+                    var txt = document.createTextNode("" + (date.getMonth() + 1) + "/" + date.getDate() + " - " + daysUntil + " Days");
+                } else {
+                    var span = document.createElement("SPAN");
+                    var txt = document.createTextNode("" + (date.getMonth() + 1) + "/" + date.getDate());
+                }
+                span.className = "dueDate";
+                span.appendChild(txt);
+                li.appendChild(span);
+            }
+            isDate = false;
+            document.getElementById("date").value = "";
+
+            var display = ""
+
+            if (inputValue.includes("131")) {
+                var intent = inputValue.indexOf("131") + 3;
+                display = inputValue.substring(0, intent - 3);
+                var t = document.createTextNode(display);
+                li.appendChild(t);
+                for (const sub of subjects) {
+                    if (sub.id === inputValue.substring(intent, inputValue.length)) {
+                        sub.appendChild(li);
+                    }
+                }
+            } else {
+                var t = document.createTextNode(inputValue);
+                li.appendChild(t);
+                subjects[0].appendChild(li);
+            }
+
+        }
+        counters = guilty();
+
+
+    }
+
+    function addSubject() {
+        var inputValue = document.getElementById("myInput").value;
+
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+
+            var ul = document.createElement("UL");
+            ul.id = inputValue;
+            document.getElementById("container").appendChild(ul);
+            var li = document.createElement("li");
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            document.getElementById(inputValue).appendChild(li);
+
+            document.getElementById("myInput").value = "";
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "guilty";
+            span.appendChild(txt);
+            li.appendChild(span);
+            li.className = "subject";
+        }
+    }
+
+    function nameFeeder() {
+        var names = ["Buffo", "Tabbs", "Sammy Rob", "Isaac", "Joe", "Mom", "Dad", "Maeve", "Paul", "Teresa"];
+        var choice = Math.floor(Math.random() * names.length);
+        alert("Text " + names[choice]);
+    }
+
+</script>

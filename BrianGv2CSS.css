@@ -1,0 +1,599 @@
+h1 {
+    color: black;
+    text-align: center;
+    padding: 10px;
+    margin: 20px;
+    display: block;
+    background-color: #CEB888;
+    border-style: ridge;
+    border-color: black;
+}
+
+h2 {
+    color: black;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+h3 {
+    color: black;
+    text-align: center;
+    padding: 10px;
+    margin: 20px;
+}
+
+button {
+    color: black;
+    font-size: 17px;
+    padding: 20px;
+    margin: 10px;
+    mix-blend-mode: multiply;
+
+}
+
+button:hover {
+    border-style: inset;
+    border-width: 3px;
+    border-bottom: black;
+    border-style: ridge;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.dropbtn {
+    color: black;
+    border: none;
+    padding: 20px;
+    /* background-color: #CEB888; */
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: crimson;
+}
+
+/* Include the padding and border in an element's total width and height */
+* {
+    box-sizing: border-box;
+}
+
+/* Remove margins and padding from the list */
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the list items */
+ul li {
+    cursor: crosshair;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    font-size: 18px;
+    transition: 0.2s;
+    width: 50%;
+
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+ul li.task {
+    background: #eee;
+
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li.task:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li.task:hover {
+    background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+    background: forestgreen;
+    color: #fff;
+    text-decoration: line-through;
+    width: 40%;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+
+/* Style the close button */
+.remove {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 43px 12px;
+    background-color: #f44336;
+}
+
+.remove:hover {
+    color: white;
+    background-color: maroon;
+}
+
+.stopConfetti {
+    position: absolute;
+    right: 96px;
+    top: 0;
+    padding: 12px 43px 12px;
+    background-color: purple;
+    color: yellow;
+}
+
+.stopConfetti:hover {
+    background-color: red;
+}
+
+.complete {
+    position: absolute;
+    right: 96px;
+    top: 0;
+    padding: 12px 43px 12px;
+    background-color: forestgreen;
+}
+
+.complete:hover {
+    color: white;
+    background-color: green;
+}
+
+.dueDate {
+    position: absolute;
+    right: 196px;
+    top: 0;
+    padding: 12px 43px 12px;
+    background-color: yellow;
+}
+
+/* Style the header */
+.header {
+    background-color: #CEB888;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+    width: 50%;
+}
+
+/* Clear floats after the header */
+.header:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the input */
+input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+    width: 60%;
+}
+
+input.title {
+    width: 45%;
+}
+
+input.date {
+    width: 15%;
+    display: none;
+}
+
+/* Style the "Add" button */
+.addItemBtn {
+    padding: 10px;
+    width: 20%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+.addSubBtn {
+    padding: 10px;
+    width: 20%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+.addDateBtn {
+    padding: 10px;
+    width: 15%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+.addItemBtn:hover {
+    background-color: #bbb;
+}
+
+.addSubBtn:hover {
+    background-color: #bbb;
+}
+
+ul li.subject {
+    font-weight: bold;
+    background-color: royalblue;
+}
+
+ul li.subject:hover {
+    background-color: skyblue;
+}
+
+.fuckupBox {
+    background-color: #CEB888;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+    width: 50%;
+}
+
+/* THIS IS FOR THE FUCKUP PAGE*/
+ul li.vice {
+    width: 50%;
+    font-weight: bold;
+    background-color: red;
+}
+
+ul li.subject:hover {
+    background-color: skyblue;
+}
+
+.guilty {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 43px 12px;
+    background-color: #f44336;
+}
+
+.guilty:hover {
+    color: white;
+    background-color: maroon;
+}
+
+.counter {
+    background-color: orange;
+    position: absolute;
+    right: 96px;
+    top: 0;
+    padding: 12px 43px 12px;
+}
+
+.counter:hover {
+    color: white;
+    background-color: green;
+}
+
+.options {
+    background-color: #CEB888;
+    padding: 7px ;
+    color: white;
+    text-align: center;
+    width: 50%;
+}
+
+/* Clear floats after the header */
+.options:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.textBox {
+    background-color: grey;
+    opacity: 25%;
+    color: white;
+    text-align: center;
+    width: 20%;
+    float: right;
+}
+
+#txtBackground {
+    /* (A1) FULLSCREEN */
+    position: fixed; z-index: 999;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+   
+    /* (A2) TRANSPARENT BACKGROUND */
+    background: rgba(0, 0, 0, 0.5);
+   
+    /* (A3) HIDDEN BY DEFAULT */
+    display: none;
+}
+
+#txtBackground.show { display: block; }
+ 
+/* (B) DIALOG BOX */
+#boxBack {
+  /* (B1) CENTER ON SCREEN */
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+ 
+  /* (B2) DIMENSIONS */
+  min-width: 320px; max-width: 600px;
+  padding: 10px;
+ 
+  /* (B3) COLORS */
+  background: #fff;
+
+}
+
+
+/* 
+html {
+    background: black;
+    overflow: hidden;
+  }
+  
+  .container,
+  .sea,
+  .sky,
+  .sun,
+  .light,
+  .bird,
+  .birdr1,
+  .birdr,
+  .fin,
+  .wave {
+    position: absolute;
+  }
+  
+  .container {
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    bottom: 0;
+    left: 50%;
+    margin-left: -50%;
+    
+  }
+  
+  .sky {
+    opacity: .8;
+    width: 100%;
+    height: 50%;
+    top: 0;
+    background: radial-gradient(at 50% 70%, #820, #610, #400, #100);
+    z-index: 30;
+  }
+  
+  .sea {
+    width: 100%;
+    height: 50%;
+    top: 50%;
+    background: radial-gradient(at 50% 0%, #007, #004);
+    z-index: 60;
+  }
+  
+  .sun {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    left: 45%;
+    z-index: 40;
+    background: linear-gradient(#ff0, #d00);
+    box-shadow: 0 0 40px 6px #f20, 0 0 150px 10px #f33;
+    animation: rise 24s ease forwards;
+  }
+  
+  @keyframes rise {
+    0% {
+      top: 50%;
+    }
+    100% {
+      top: 15%;
+    }
+  }
+  
+  .light {
+    opacity: .5;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(at 50% 0%, #ff0, transparent);
+    z-index: 60;
+    animation: over 12s ease forwards;
+  }
+  
+  @keyframes over {
+    0% {
+      opacity: 0
+    }
+    ;
+    100% {
+      opacity: .2
+    }
+    ;
+  }
+  
+  .bird {
+    opacity: 1;
+    top: 50px;
+    left: 00px;
+    width: 10px;
+    height: 8px;
+    border: 2px solid black;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    transform: rotateZ(-75deg);
+    animation: move 25s linear infinite, flap .5s linear alternate infinite;
+    z-index: 70;
+  }
+  
+  .birdr {
+    z-index: 70;
+    
+    opacity: 1;
+    top: 50px;
+    width: 10px;
+    height: 8px;
+    border: 2px solid black;
+    border-radius: 50%;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    transform: rotateZ(75deg);
+    margin: 0px 8px;
+    animation: mover 25s linear infinite, flap .5s linear alternate infinite;
+  }
+  
+  .bird1 {
+    opacity: 1;
+    top: 45px;
+    left: 0px;
+    width: 10px;
+    height: 8px;
+    border: 2px solid black;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+    transform: rotateZ(-90deg);
+    animation: move 25s linear infinite 1.5s, flap .5s linear alternate infinite 1.5s;
+    z-index: 70;
+  }
+  
+  .birdr1 {
+    z-index: 70;
+    
+    opacity: 1;
+    top: 45px;
+    width: 10px;
+    height: 8px;
+    border: 2px solid black;
+    border-radius: 50%;
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    transform: rotateZ(90deg);
+    margin: 0px 8px;
+    animation: mover 25s linear infinite 1.5s, flap .5s linear alternate infinite 1.5s;
+  }
+  
+  .fin {
+    border: 30px solid black;
+    top: 90%;
+    left: 100%;
+    z-index: 100;
+    border-left: 30px solid transparent;
+    border-top: 0px solid transparent;
+    border-right: 10px solid transparent;
+    border-radius: 0px 0px 2px 10px;
+    animation: swim 30s linear forwards 10s;
+  }
+  
+  .wave {
+    margin: 26px 7px;
+    border-left: 3px solid transparent;
+    border-top: 6px solid rgba(50, 50, 140, .3);
+    border-right: 50px solid transparent;
+    transform: rotatez(6deg);
+    z-index: 60;
+  }
+  
+  @keyframes swim {
+    0% {
+      left: 100%;
+    }
+    100% {
+      left: -25%
+    }
+    ;
+  }
+  
+  @keyframes move {
+    0% {
+      left: 0px;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  @keyframes mover {
+    0% {
+      left: -0px;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+  
+  @keyframes flap {
+    0% {
+      border-radius: 90%;
+    }
+    100% {
+      border-radius: 10%;
+    }
+  } */

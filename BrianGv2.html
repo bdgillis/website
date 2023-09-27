@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="BrianGv2CSS.css" />
+
+<head>
+    <title>Brian Gillis' Website</title>
+</head>
+
+<script src="confetti.js"></script>
+
+
+<body id="container" style="background-image: url('Background.jpeg'); background-size: cover;">
+    <h1>THE To-Do List</h1>
+    <h2 title="what it do babyyyy">Be Better Than Yesterday</h2>
+    <hr>
+    <button onClick="window.location.reload();">Refresh</button>
+
+    <div class="dropdown">
+        <button class="dropbtn">Email</button>
+        <div class="dropdown-content">
+            <a href="https://outlook.office.com/mail/">Outlook</a>
+            <a href="https://mail.google.com/mail/u/0/#inbox">Gmail</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">ME 315</button>
+        <div class="dropdown-content">
+            <a href="https://purdue.brightspace.com/d2l/le/content/839025/Home">White Paint Guy Lectures</a>
+            <a href="https://purdue.brightspace.com/d2l/le/content/838986/Home">Brightspace (Main)</a>
+            <a href="https://www.gradescope.com/courses/561926">Gradescope</a>
+            <a href="https://studylib.net/doc/26123481/fundamentals-of-heat-and-mass-transfer-8th-edition--konku...">Textbook</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">ME 444</button>
+        <div class="dropdown-content">
+            <a href="https://purdue.brightspace.com/d2l/le/content/839174/Home">Brightspace (Main)</a>
+            <a href="https://purdue.brightspace.com/d2l/lms/dropbox/user/folders_list.d2l?ou=839341&isprv=0">Brightspace (Assignment turn in)</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">CS 307</button>
+        <div class="dropdown-content">
+            <a href="https://endor.cs.purdue.edu/~cs307/">Course Page</a>
+            <a href="https://edstem.org/us/courses/42627/discussion/">Ed Discussion</a>
+            <a href="https://www.gradescope.com/courses/571833">Gradescope</a>
+            <a href="https://drive.google.com/drive/u/0/folders/1mm-_2kuGX7nAY8zA0Lcdo7EvxB7-wh58">Google Drive</a>
+            <a href="https://github.com/bdgillis/CS307-myTree">GitHub</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">CS 348</button>
+        <div class="dropdown-content">
+            <a href="https://purdue.brightspace.com/d2l/le/content/832146/Home">Brightspace</a>
+            <a href="https://www.gradescope.com/courses/588437">Gradescope</a>
+            <a href="/Users/briangillis/Desktop/182sched.pdf">Schedule</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">MSE 230</button>
+        <div class="dropdown-content">
+            <a href="https://www.cs.purdue.edu/homes/cs240/">Homepage</a>
+            <a href="https://anupturnedworld.files.wordpress.com/2016/06/callister-materials-science-and-engineering.pdf">Callister text</a>
+        </div>
+    </div>
+    
+    <div class="dropdown">
+        <button class="dropbtn">Take a Break</button>
+        <div class="dropdown-content">
+            <a href="https://netflix.com/browse">Netflix</a>
+            <a href="https://www.youtube.com">YouTube</a>
+            <a href="https://www.xfinity.com/stream/">TV</a>
+            <a href="https://play.hbomax.com/page/urn:hbo:page:home">HBO</a>
+        </div>
+    </div>
+
+    <button id="showCalendar" onclick="calendar()">Show Calendar</button>
+
+    <button onclick="window.location.href='file:///Users/briangillis/Documents/To-Do-List/BIGIdeas.html'">BIG Ideas
+        Board</button>
+    <button onclick="window.location.href='file:///Users/briangillis/Documents/To-Do-List/theFuckUp.html'">Uh
+        oh</button> 
+    <button onclick="nameFeeder()">Need a Hand</button>
+
+    <!-- <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23E4C441&ctz=America%2FIndiana%2FIndianapolis&mode=WEEK&showPrint=0&src=Z2lsbGlzYnJpYW5kQGdtYWlsLmNvbQ&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&color=%23039BE5&color=%2333B679" style="border:solid 1px #777" width="1000" height="600" frameborder="0" scrolling="no"></iframe> -->
+
+    <div id="features" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+        <div id="myDIV" class="header" style="background-color:#CEB888">
+            <h3> My To Do List </h3>
+            <input type="text" id="myInput" placeholder="Title...131{Subject}" class="title">
+            <input type="text" id="date" placeholder="Date MM,DD" class="date">
+            <span onclick="typeDate()" class="addDateBtn" id="addDateBtn">Due Date...</span>
+            <span onClick="addTask()" class="addItemBtn" id="addItemBtn">Add</span>
+            <span onClick="addSubject()" class="addSubBtn" id="AddSubBtn">Add Subject</span>
+        </div>
+
+        <div id="options" class="options">
+            <h3> What'll it be today sir? </h3>
+            <button onclick="activity()">Activities</button>
+            <button onclick="quote()">Inspirational Quote</button>
+            <button onclick="activity()">Picture</button>
+            <button onclick="nameFeeder()">Phone a Friend</button>
+            <button onclick="studySpot()">Study Spot</button>
+
+        </div>
+    </div>
+
+    <ul id="Up Next">
+        <li class="subject">Up Next</li>
+        <li class="task">Learn react</li>
+    </ul>
+
+    <div id="txtBackground">
+        <div id="boxBack">
+            <div id="txt"></div>
+            <button id ="close" onclick="dbox()">Sounds Good</button>
+            <button id="retry" onclick="reshuffle()">Reshuffle</button>
+
+        </div>
+    </div>
+    
+</body>
+<script src="BrianGv2JS.js"></script>
+
+
+<!-- <script>
+
+    var itemList = document.getElementsByTagName("LI");
+    for (var i = 0; i < itemList.length; i++) {
+        if (itemList[i].className && itemList[i].className !== "subject") {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u2713");
+            span.className = "complete";
+            span.appendChild(txt);
+            itemList[i].appendChild(span);
+        }
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "remove";
+        span.appendChild(txt);
+        itemList[i].appendChild(span);
+    }
+
+    var remove = document.getElementsByClassName("remove");
+    for (i = 0; i < remove.length; i++) {
+        remove[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+
+    function completed() {
+        var complete = document.getElementsByClassName("complete");
+        for (i = 0; i < complete.length; i++) {
+            complete[i].onclick = function () {
+                this.style.display = "none";
+                var item = this.parentElement;
+                item.className = "checked";
+                startConfetti();
+                window.scrollTo({
+                    top: 600,
+                    left: 0,
+                    behavior: 'smooth'
+                });
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth'
+                    })
+                }, 3000);
+
+
+                var stop = document.createElement("SPAN");
+                txt = document.createTextNode("Back to Work");
+                stop.className = "stopConfetti";
+                stop.appendChild(txt);
+                item.appendChild(stop);
+
+                endCelebrate();
+            }
+        }
+
+    }
+
+    function endCelebrate() {
+        var endCelly = document.getElementsByClassName("stopConfetti");
+        for (i = 0; i <= endCelly.length; i++) {
+            endCelly[i].onclick = function () {
+                stopConfetti();
+                this.style.display = "none";
+            }
+        }
+    }
+
+    completed();
+
+
+    function addTask() {
+
+        var inputValue = document.getElementById("myInput").value;
+        if (document.getElementById("date").value) {
+            var date = document.getElementById("date").value;
+            date = "2022," + date;
+            var isDate = true;
+            date = new Date(date);
+            var today = new Date();
+            var isMonth;
+
+            if (date.getMonth() === today.getMonth()) {
+                var daysUntil = date.getDate() - today.getDate();
+                isMonth = true;
+            } else {
+                isMonth = false;
+            }
+        }
+
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("date").style.display = "none";
+            document.getElementById("addDateBtn").style.display = "inline";
+
+            var li = document.createElement("li");
+            var subjects = document.getElementsByTagName("UL");
+            li.className = "task";
+            document.getElementById("myInput").value = "";
+
+            if (isDate) {
+                if (isMonth) {
+                    var span = document.createElement("SPAN");
+                    var txt = document.createTextNode("" + (date.getMonth() + 1) + "/" + date.getDate() + " - " + daysUntil + " Days");
+                } else {
+                    var span = document.createElement("SPAN");
+                    var txt = document.createTextNode("" + (date.getMonth() + 1) + "/" + date.getDate());
+                }
+                span.className = "dueDate";
+                span.appendChild(txt);
+                li.appendChild(span);
+            }
+            isDate = false;
+            document.getElementById("date").value = "";
+
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u2713");
+            span.className = "complete";
+            span.appendChild(txt);
+            li.appendChild(span);
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "remove";
+            span.appendChild(txt);
+            li.appendChild(span);
+            var display = ""
+
+            if (inputValue.includes("131")) {
+                var intent = inputValue.indexOf("131") + 3;
+                display = inputValue.substring(0, intent - 3);
+                var t = document.createTextNode(display);
+                li.appendChild(t);
+                for (const sub of subjects) {
+                    if (sub.id === inputValue.substring(intent, inputValue.length)) {
+                        sub.appendChild(li);
+                    }
+                }
+            } else {
+                var t = document.createTextNode(inputValue);
+                li.appendChild(t);
+                subjects[0].appendChild(li);
+            }
+
+            for (i = 0; i < remove.length; i++) {
+                remove[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+        }
+        completed();
+
+
+    }
+
+    function addSubject() {
+        var inputValue = document.getElementById("myInput").value;
+
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+
+            var ul = document.createElement("UL");
+            ul.id = inputValue;
+            document.getElementById("container").appendChild(ul);
+            var li = document.createElement("li");
+            var t = document.createTextNode(inputValue);
+            li.appendChild(t);
+            document.getElementById(inputValue).appendChild(li);
+
+            document.getElementById("myInput").value = "";
+
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "remove";
+            span.appendChild(txt);
+            li.appendChild(span);
+            li.className = "subject";
+
+            for (i = 0; i < remove.length; i++) {
+                remove[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+        }
+
+    }
+    function typeDate() {
+        document.getElementById("addDateBtn").style.display = "none";
+        document.getElementById("date").style.display = "inline";
+    }
+
+    function dbox(msg) {
+        if (msg != undefined) {
+            document.getElementById("txt").innerHTML = msg;
+            document.getElementById("txtBackground").classList.add("show");
+        } else {
+            document.getElementById("txtBackground").classList.remove("show");
+        }
+    }
+    var recent;
+    function nameFeeder() {
+        var names = ["Tim", "Buffo", "Tabbs", "Sammy Rob", "Isaac", "Joe", "Mom", "Dad", "Maeve", "Paul", "Teresa"];
+        var choice = Math.floor(Math.random() * names.length);
+        recent = "name";
+        
+        dbox(names[choice]);
+        if (names[choice] == "Tim") {
+            dbox(names[choice] + "<br><br> That hits different doesn't it");
+        }
+    }
+    function activity() {
+        var activities = ["Read a chapter of Siddartha", "Touch grass", "read an article", "tap into your watch later on youtube", "Go sit in someone's room", "Journal", "Go to the Gym", "CoRec Basketball", "3v3 Baskeball outtside", "Yoga"]
+        var choice = Math.floor(Math.random() * activities.length);
+        recent = "activity";
+
+        dbox(activities[choice]);
+
+    }
+    function quote() {
+        var quotes = ["I Guess thats better than a grave and a hearse <br><br>- Houndmouth","Anything but stop halfway, that was the most sensible course of all, not only in business, but anywhere at any time.<br><br> - franz Kafka", "Finish strong, Boston Strong, Brian strong. Neil Armstrong. <br><br> - Dad", "I get knocked down, but I get up again, You are never gonna keep me down <br><br> - Chumbawumba", "All of the stories, the hero gets lonely, Now is the time to show what you're made of<br><br>- Kid Cudi", "Tough times never last, only tough people<br><br> - Anonomous"];
+        var choice = Math.floor(Math.random() * quotes.length);
+        document.getElementById("close").innerHTML = "Let's Fucking Ride"
+        recent = "quote";
+
+        dbox(quotes[choice]);
+    }
+
+    function studySpot() {
+        var studySpots = ["WALC (big room)", "Study room", "Krach", "Tony stark building", "Underground Library", "Krannert (@buffo)", "Stewart Library", "Lawson basement", "WALC empty room"];
+        var choice = Math.floor(Math.random() * studySpots.length);
+        recent = "study";
+
+        dbox(studySpots[choice]);
+    }
+
+    function reshuffle() {
+        switch (recent) {
+            case "name" :
+                nameFeeder();
+                break;
+            case "activity" :
+                activity();
+                break;
+            case "quote" :
+                quote();
+                break;
+            case "study" : 
+                studySpot();
+                break;
+        }
+    }
+
+</script> -->
+
