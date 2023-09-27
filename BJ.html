@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!-- <link rel="stylesheet" href="BJCSS.css" /> -->
+<style>
+    #boxBack {
+    /* (A1) FULLSCREEN */
+    position: fixed; z-index: 999;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+   
+    /* (A2) TRANSPARENT BACKGROUND */
+    background: rgba(0, 0, 0, 0.5);
+   
+    /* (A3) HIDDEN BY DEFAULT */
+    display: none;
+  }
+   
+  /* (A4) ADD THIS CSS CLASS TO SHOW */
+  #boxBack.show { display: block; }
+   
+  /* (B) DIALOG BOX */
+  #boxWrap {
+    /* (B1) CENTER ON SCREEN */
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+   
+    /* (B2) DIMENSIONS */
+    min-width: 320px; max-width: 600px;
+    padding: 10px;
+   
+    /* (B3) COLORS */
+    background: #fff;
+  }
+
+  h4 {
+    height: 50px;
+    width: 50px;
+    border-style: inset;
+    border-color: black;
+    text-align: center;
+    padding: 10px 0px; 
+  }
+  /* .card {
+      height: 50px;
+      width: 50px;
+      border-style: inset;
+      border-color: black;
+      text-align: center;
+      padding: 10px 0px;
+  } */
+
+.wins {
+    border-color: green;
+    color: green;
+}
+.losses {
+    border-color:red;
+    color:red;
+}
+</style>
+
+<head>
+    <title>BlackJack</title>
+</head>
+
+<body>
+    <h1>BlackJack</h1>
+    <h2>This one goes out to Luke Murphy</h2>
+    <div id="money" style="display:flex; flex-direction: row; justify-content: left; align-items: left">
+
+        <h2>Balance: </h2>
+        <h2 id="balance">500</h2>
+    </div>
+
+    <div id="money" style="display:flex; flex-direction: row; justify-content: left; align-items: left">
+
+        <h2>Bet:</h2>
+        <h2 id="bet">0</h2>
+
+    </div>
+
+
+    <div id="dealer" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+        <h3 id="dealer">Dealer shows: </h3>
+        <h4 class="card" id="dealerShow"></h4>
+        <h4 class="card" id="dealerHide">?</h4>
+    </div>
+
+    <div id="player" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+        <h3>You have: </h3>
+        <h4 class="card" id="playC1"></h4>
+        <h4 class="card" id="playC2"></h4>
+    </div>
+
+    <div id="player" style="display:none; flex-direction: row; justify-content: center; align-items: center">
+        <h3>Split hand 2: </h3>
+        <h4 class="card" id="playC1"></h4>
+        <h4 class="card" id="playC2"></h4>
+
+    </div>
+
+    <button id="deal" onclick="deal()">Deal</button>
+    <button id="hit" onclick="hit()" style="display:none">Hit</button>
+    <button id="double" onclick="double()" style="display:none">Double Down</button>
+    <button id="split" onclick="split()" style="display:none">Split</button>
+
+    <button id="stand" onclick="stand()" style="display:none">Stand</button>
+
+    <button id="1" onclick="setBet(1)">$1</button>
+    <button id="5" onclick="setBet(10)">$10</button>
+    <button id="25" onclick="setBet(25)">$25</button>
+    <button id="50" onclick="setBet(50)">$50</button>
+    <button id="100" onclick="setBet(100)">$100</button>
+
+
+    <button id="resetBet" onclick="setBet()">Reset Bet</button>
+<!-- 
+    <div id="player" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+
+        <h4 class="wins" id="w">0</h4>
+        <h4 class="losses" id="l">0</h4>
+        <h4 class="ties" id="t">0</h4>
+    </div> -->
+
+    <!-- (A) HTML DIALOG BOX -->
+    <div id="boxBack">
+        <div id="boxWrap">
+            <div id="boxTxt"></div>
+            <input type="button" value="OK" onclick="dbox()" />
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+    var deck = [];
+    var playerHand = [];
+    var dealerHand = [];
+    var playerValue = 0;
+    var dealerValue = 0;
+    var isStand = false;
+    // localStorage.wins = 0;
+    // localStorage.losses = 0;
+    // localStorage.washes = 0;
+    resetDeck();
+    //deal();
+    //BJCheck();
+
+    if (localStorage.balance == null) {
+        localStorage.balance = 500;
+    }
+
+    //RESET BALANCE
+    //localStorage.balance = 500;
+
+    document.getElementById("balance").innerHTML = localStorage.balance;
+
+
+    function resetDeck() {
+        deck = ["A", "A", "A", "A", "K", "K", "K", "K", "Q", "Q", "Q", "Q", "J", "J", "J", "J"]
+
+        for (var i = 2; i < 11; i++) {
+            for (var k = 0; k < 4; k++) {
+                deck.push(i);
+            }
+        }
+        // deck = ["K", 10, 10, 10, 10, 10, "A", "A", "A"]
+    }
+
+    function setBet(value) {
+        if (value) {
+            var currentB = document.getElementById("bet").innerHTML;
+            var newVal = parseInt(currentB) + value;
+            if (newVal <= localStorage.balance) {
+                document.getElementById("bet").innerHTML = newVal;
+            } else {
+                alert ("Insufficient funds broke boi")
+            }
+        } else {
+            document.getElementById("bet").innerHTML = 0;
+        }
+    }
+
+    function deal() {
+        document.getElementById("stand").style.display = "inline";
+        document.getElementById("hit").style.display = "inline";
+        document.getElementById("deal").style.display = "none";
+        document.getElementById("1").style.display = "none";
+        document.getElementById("5").style.display = "none";
+        document.getElementById("25").style.display = "none";
+        document.getElementById("50").style.display = "none";
+        document.getElementById("100").style.display = "none";
+        document.getElementById("resetBet").style.display = "none";
+        document.getElementById("split").style.display = "none";
+
+
+        // var newCards = [];
+        var newCards = document.getElementsByClassName("newCard");
+        console.log(newCards);
+        if (newCards.length > 0) {
+            for (var i = 0; i <= newCards.length; i++) {
+                console.log(newCards[0])
+                newCards[0].remove();
+                console.log(newCards[0])
+            }
+        }
+        console.log(newCards);
+
+        playerHand = [];
+        dealerHand = [];
+        var [card, color] = getCard();
+        playerHand.push(card);
+        document.getElementById("playC1").innerHTML = card;
+        if (color == "red") {
+            document.getElementById("playC1").style.color = "red";
+        }
+
+        [card, color] = getCard();
+        dealerHand.push(card);
+        document.getElementById("dealerShow").innerHTML = card;
+        if (color == "red") {
+            document.getElementById("dealerShow").style.color = "red";
+        }
+
+        [card, color] = getCard();
+        playerHand.push(card);
+        document.getElementById("playC2").innerHTML = card;
+        if (color == "red") {
+            document.getElementById("playC2").style.color = "red";
+        }
+
+        [card, color] = getCard();
+        dealerHand.push(card);
+        document.getElementById("dealerHide").innerHTML = "?";
+
+
+        console.log(dealerHand, playerHand)
+
+        handValue(playerHand, "P");
+        handValue(dealerHand, "D");
+        if (playerHand[0] == playerHand[1]) {
+            document.getElementById("split").style.display = "inline";
+
+        }
+    }
+
+    function hit() {
+        var newCard = document.createElement("h4");
+        var [card, color] = getCard();
+        playerHand.push(card)
+        newCard.innerHTML = card;
+        document.getElementById("player").appendChild(newCard);
+        newCard.className = "newCard";
+        if (color == "red") {
+            newCard.style.color = "red";
+        }
+
+        handValue(playerHand, "P");
+    }
+
+    function stand() {
+        document.getElementById("dealerHide").innerHTML = dealerHand[1];
+        isStand = true;
+        dealerDeal(dealerValue);
+
+        document.getElementById("stand").style.display = "none";
+        document.getElementById("hit").style.display = "none";
+    }
+
+    function reset() {
+        document.getElementById("deal").style.display = "inline";
+        document.getElementById("stand").style.display = "none";
+        document.getElementById("hit").style.display = "none";
+        document.getElementById("1").style.display = "inline";
+        document.getElementById("5").style.display = "inline";
+        document.getElementById("25").style.display = "inline";
+        document.getElementById("50").style.display = "inline";
+        document.getElementById("100").style.display = "inline";
+        document.getElementById("resetBet").style.display = "inline";
+
+        //deal();
+        resetDeck();
+        isStand = false;
+
+        // document.getElementById("w").innerHTML = localStorage.wins;
+        // document.getElementById("l").innerHTML = localStorage.losses;
+        // document.getElementById("t").innerHTML = localStorage.washes;
+        document.getElementById("balance").innerHTML = localStorage.balance;
+    }
+
+    function getCard() {
+        var choice = Math.floor(Math.random() * deck.length);
+        var card = deck[choice];
+        var color = "black";
+        if (choice % 2 == 0) {
+            color = "red";
+        }
+
+        deck.splice(choice, 1)
+        return [card, color];
+    }
+
+    function handValue(hand, type) {
+        var value = 0;
+        for (var i = 0; i < hand.length; i++) {
+            if (hand[i] == "K" || hand[i] == "Q" || hand[i] == "J") {
+                value += 10;
+            } else if (hand[i] == "A") { //here is the problem
+                value += 11;
+            } else {
+                value += parseInt(hand[i])
+            }
+        }
+
+        if (hand.includes("A") && value > 21) { //maybe here too?
+            value -= 10;
+        }
+
+        switch (type) {
+            case "D":
+                dealerValue = value;
+                break;
+            default:
+                playerValue = value;
+                break;
+        }
+
+        console.log("Dealer: ", dealerValue);
+        console.log("Player: ", playerValue);
+
+        var result;
+
+        //HANDLE HAND VALUES
+        if (value == 21 && hand.length == 2 && type == "P") {
+            dbox("BLACKJACK");
+            localStorage.balance = parseInt(localStorage.balance) + parseInt(document.getElementById("bet").innerHTML) * 1.5
+            reset();
+        } else if (value == 21 && hand.length == 2 && type == "D") {
+            dbox("Dealer has BlackJack, you lose");
+            document.getElementById("dealerHide").innerHTML = dealerHand[1];
+            localStorage.balance = parseInt(localStorage.balance) - parseInt(document.getElementById("bet").innerHTML)
+            reset();
+        } else if (value > 21 && type == "P") {
+            dbox("Bust");
+            document.getElementById("dealerHide").innerHTML = dealerHand[1];
+            localStorage.balance = parseInt(localStorage.balance) - parseInt(document.getElementById("bet").innerHTML)
+            reset();
+        } else if (playerValue < 22 && value > 21 && type == "D") {
+            dbox("Dealer is Bust, You Win");
+            localStorage.balance = parseInt(localStorage.balance) + parseInt(document.getElementById("bet").innerHTML)
+            reset();
+        } else if (type = "D" && isStand && dealerValue < 17) {
+            dealerDeal(dealerValue);
+            console.log("dealer card")
+        } else if (isStand) {
+            console.log("Dealer: ", dealerValue);
+            console.log("Player: ", playerValue);
+            if (dealerValue > playerValue) {
+                dbox("Dealer has " + dealerValue + " vs. your " + playerValue + ". <br><br>You lose")
+                localStorage.balance = parseInt(localStorage.balance) - parseInt(document.getElementById("bet").innerHTML)
+
+            } else if (dealerValue < playerValue) {
+                dbox("Dealer has " + dealerValue + " vs. your " + playerValue + ". <br><br>You Win!")
+                localStorage.balance = parseInt(localStorage.balance) + parseInt(document.getElementById("bet").innerHTML)
+            } else {
+                dbox("It's a wash")
+            }
+            reset();
+        }
+    }
+
+    function dbox(msg) {
+        if (msg != undefined) {
+            document.getElementById("boxTxt").innerHTML = msg;
+            document.getElementById("boxBack").classList.add("show");
+        } else { document.getElementById("boxBack").classList.remove("show"); }
+    }
+
+    function dealerDeal(dealerValue) {
+
+        if (dealerValue < 17) {
+            var newCard = document.createElement("h4");
+            var [card, color] = getCard();
+            dealerHand.push(card)
+            newCard.innerHTML = card;
+            document.getElementById("dealer").appendChild(newCard);
+            newCard.className = "newCard";
+            if (color == "red") {
+                newCard.style.color = "red";
+            }
+        }
+
+        handValue(dealerHand, "D");
+    }
+
+    function split() {
+        var hand = document.getElementById("player");
+
+    }
+
+
+    console.log(deck)
+
+    if (localStorage.count) {
+
+    } else {
+
+    }
+
+    if (typeof (Storage) !== "undefined") {
+
+        localStorage.count = 0;
+
+
+    } else {
+        console.log("No Storage Available")
+    }
+</script>
+
